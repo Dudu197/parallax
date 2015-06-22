@@ -6,7 +6,7 @@ var $elem;
 (function ( $ ) {
  
     $.fn.parallax = function(){
-        $elem = this;
+        $elem = this.selector;
         var i = 0;
 
         $($elem).each(function(){
@@ -84,3 +84,5 @@ $(document).ready(function() {
 //        $(".frame[frame='" + (fixo + 2) + "']").css("position", "relative");
 
     });
+
+});
