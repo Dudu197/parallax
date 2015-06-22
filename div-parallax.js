@@ -1,4 +1,10 @@
-    var tops = [];
+var tops = [];
+
+var $elem;
+
+$.fn.parallax = function(elem){
+    $elem = elem;
+};
 
 function isScrolledIntoView(elem){
     $elem = $(elem);
@@ -11,20 +17,17 @@ function isScrolledIntoView(elem){
     return ((bounds.top <= viewport.bottom) && (bounds.bottom >= viewport.top));
     /*var $elem = $(elem);
     var $window = $(window);
-
     var docViewTop = $window.scrollTop();
     var docViewBottom = docViewTop + $window.height();
-
     var elemTop = $elem.offset().top;
     var elemBottom = elemTop + $elem.height();
-
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     */
 }
 
 function getActualFrame(){
     for(i = 0; i < tops.length; i++){
-        if(isScrolledIntoView(".frame[frame='"+i+"']")){
+        if(isScrolledIntoView($elem + "[frame='"+i+"']")){
             return i;
         }
     }
@@ -36,10 +39,10 @@ $(document).ready(function() {
         
     var i = 0;
 
-    $(".frame").each(function(){
+    $($elem).each(function(){
         $(this).attr("frame", i);
         var scrollTop = $(window).scrollTop(),
-	elementOffset = $(this).offset().top;
+        elementOffset = $(this).offset().top;
 	
         tops[i] = elementOffset;
         i++;
@@ -61,14 +64,14 @@ $(document).ready(function() {
         lastScrollTop = st;
 
 
-        $(".frame[frame='" + fixo + "']").css("position", "fixed");
-        $(".frame[frame='" + fixo + "']").css("top", "0");
-        $(".frame[frame='" + fixo + "']").css("z-index", "-1");
-        $(".frame[frame='" + (fixo + 1) + "']").css("z-index", "-2");
+        $($elem + "[frame='" + fixo + "']").css("position", "fixed");
+        $($elem + "[frame='" + fixo + "']").css("top", "0");
+        $($elem + "[frame='" + fixo + "']").css("z-index", "-1");
+        $($elem + "[frame='" + (fixo + 1) + "']").css("z-index", "-2");
 
-        $(".frame[frame='" + relativo + "']").css("position", "relative");
-        $(".frame[frame='" + relativo + "']").css("top", 0);//tops[index]
-        $(".frame[frame='" + relativo + "']").css("z-index", "auto");
+        $($elem + "[frame='" + relativo + "']").css("position", "relative");
+        $($elem + "[frame='" + relativo + "']").css("top", 0);//tops[index]
+        $($elem + "[frame='" + relativo + "']").css("z-index", "auto");
 //        $(".frame[frame='" + (fixo + 2) + "']").css("z-index", "auto");
 //        $(".frame[frame='" + (fixo + 2) + "']").css("position", "relative");
 
