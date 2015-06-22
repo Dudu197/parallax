@@ -2,9 +2,26 @@ var tops = [];
 
 var $elem;
 
-$.fn.parallax = function(elem){
-    $elem = elem;
-};
+
+(function ( $ ) {
+ 
+    $.fn.parallax = function(){
+        $elem = this;
+        var i = 0;
+
+        $($elem).each(function(){
+            $(this).attr("frame", i);
+            var scrollTop = $(window).scrollTop(),
+            elementOffset = $(this).offset().top;
+        
+            tops[i] = elementOffset;
+            i++;
+        });
+
+    };
+    
+ 
+}( jQuery ));
 
 function isScrolledIntoView(elem){
     $elem = $(elem);
@@ -37,16 +54,7 @@ function getActualFrame(){
 
 $(document).ready(function() {
         
-    var i = 0;
 
-    $($elem).each(function(){
-        $(this).attr("frame", i);
-        var scrollTop = $(window).scrollTop(),
-        elementOffset = $(this).offset().top;
-	
-        tops[i] = elementOffset;
-        i++;
-    });
 
     //Parallax para singlePage
 
